@@ -10,8 +10,8 @@ if (!apiKey) {
 
 const genAI = new GoogleGenerativeAI(apiKey || "MOCK_KEY");
 
-// Usamos gemini-1.5-flash para respostas rápidas e eficientes no fluxo interativo
-const MODEL_NAME = "gemini-1.5-flash";
+// Usamos gemini-2.5-flash para respostas rápidas e eficientes no fluxo interativo
+const MODEL_NAME = "gemini-2.5-flash";
 
 /**
  * Conduz o chat da entrevista
