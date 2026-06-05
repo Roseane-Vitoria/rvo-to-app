@@ -74,6 +74,49 @@ export async function generateMarketResearch(initialIdea, chatHistory) {
       model: MODEL_NAME,
       generationConfig: {
         responseMimeType: "application/json",
+        responseSchema: {
+          type: "object",
+          properties: {
+            concorrentes: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  nome: { type: "string" },
+                  descricao: { type: "string" },
+                  link: { type: "string" }
+                },
+                required: ["nome", "descricao", "link"]
+              }
+            },
+            tamanhoMercado: { type: "string" },
+            oportunidade: { type: "string" },
+            nivelConcorrencia: { type: "string" },
+            justificativaConcorrencia: { type: "string" },
+            validacao: {
+              type: "object",
+              properties: {
+                pontosFortes: {
+                  type: "array",
+                  items: { type: "string" }
+                },
+                riscos: {
+                  type: "array",
+                  items: { type: "string" }
+                }
+              },
+              required: ["pontosFortes", "riscos"]
+            }
+          },
+          required: [
+            "concorrentes",
+            "tamanhoMercado",
+            "oportunidade",
+            "nivelConcorrencia",
+            "justificativaConcorrencia",
+            "validacao"
+          ]
+        },
         maxOutputTokens: 2000,
       },
       systemInstruction: `Você é um analista de mercado sênior especialista em startups e novos produtos digitais. Baseando-se na ideia inicial do usuário e no histórico da entrevista de refinamento, você deve realizar uma análise de mercado simulada e detalhada.
@@ -134,6 +177,39 @@ export async function generateCodingPrompts(initialIdea, chatHistory, marketRese
       model: MODEL_NAME,
       generationConfig: {
         responseMimeType: "application/json",
+        responseSchema: {
+          type: "object",
+          properties: {
+            replit: {
+              type: "object",
+              properties: {
+                badge: { type: "string" },
+                prompt: { type: "string" },
+                instrucoes: { type: "string" }
+              },
+              required: ["badge", "prompt", "instrucoes"]
+            },
+            lovable: {
+              type: "object",
+              properties: {
+                badge: { type: "string" },
+                prompt: { type: "string" },
+                instrucoes: { type: "string" }
+              },
+              required: ["badge", "prompt", "instrucoes"]
+            },
+            bolt: {
+              type: "object",
+              properties: {
+                badge: { type: "string" },
+                prompt: { type: "string" },
+                instrucoes: { type: "string" }
+              },
+              required: ["badge", "prompt", "instrucoes"]
+            }
+          },
+          required: ["replit", "lovable", "bolt"]
+        },
         maxOutputTokens: 2500,
       },
       systemInstruction: `Você é um Engenheiro de Software especialista em Vibe Coding e plataformas no-code/low-code como Replit Agent, Lovable.dev e Bolt.new. 
