@@ -1,0 +1,10 @@
+run = "npm run build && NODE_ENV=production npm start"
+entrypoint = "server/index.js"
+
+[nix]
+channel = "stable-23.11"
+
+[ports]
+[ports.web]
+localPort = 3001
+externalPort = 80
