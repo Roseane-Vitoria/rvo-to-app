@@ -89,6 +89,10 @@ export default function Interview({ initialIdea, messages, setMessages, onComple
 
       setMessages([
         {
+          role: "user",
+          content: `Minha ideia de aplicativo é: ${initialIdea}`,
+        },
+        {
           role: "assistant",
           content: parsed.cleanText,
           rawContent: data.response, // Salvamos para recuperar o estado no refresh
@@ -122,14 +126,14 @@ export default function Interview({ initialIdea, messages, setMessages, onComple
     setLoading(true);
 
     try {
-      // Enviamos o histórico completo no formato [{role, content}]
-      // O backend cuidará de formatar conforme o SDK do Gemini espera
+      // Enviamos o histórico antes da nova resposta do usuário.
+      // O backend cuidará de formatar conforme o SDK do Gemini espera.
       const res = await fetch("http://localhost:3001/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          history: updatedMessages,
-          message: userMessage,
+          history: messages, // Histórico antigo
+          message: userMessage, // Nova mensagem
         }),
       });
       const data = await res.json();
