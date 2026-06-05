@@ -158,7 +158,13 @@ Retorne APENAS o JSON válido.`,
     
     const result = await model.generateContent(contextText);
     const text = result.response.text();
-    return JSON.parse(text);
+    try {
+      return JSON.parse(text);
+    } catch (parseError) {
+      console.error("FALHA AO PARSEAR JSON DA PESQUISA DE MERCADO. TEXTO BRUTO:");
+      console.error(text);
+      throw parseError;
+    }
   } catch (error) {
     console.error("Erro na geração da pesquisa de mercado:", error);
     throw error;
@@ -210,7 +216,7 @@ export async function generateCodingPrompts(initialIdea, chatHistory, marketRese
           },
           required: ["replit", "lovable", "bolt"]
         },
-        maxOutputTokens: 2500,
+        maxOutputTokens: 8000,
       },
       systemInstruction: `Você é um Engenheiro de Software especialista em Vibe Coding e plataformas no-code/low-code como Replit Agent, Lovable.dev e Bolt.new. 
 Baseado no aplicativo refinado do usuário, você criará 3 prompts prontos e otimizados, cada um projetado especificamente para as características de cada ferramenta.
@@ -247,7 +253,13 @@ ${JSON.stringify(marketResearch, null, 2)}`;
 
     const result = await model.generateContent(contextText);
     const text = result.response.text();
-    return JSON.parse(text);
+    try {
+      return JSON.parse(text);
+    } catch (parseError) {
+      console.error("FALHA AO PARSEAR JSON DOS PROMPTS. TEXTO BRUTO:");
+      console.error(text);
+      throw parseError;
+    }
   } catch (error) {
     console.error("Erro na geração de prompts de coding:", error);
     throw error;
