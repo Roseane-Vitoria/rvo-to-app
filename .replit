@@ -1,4 +1,4 @@
-run = "npm run build && NODE_ENV=production npm start"
+run = "npm install && npm run install-all && npm run build && NODE_ENV=production npm start"
 entrypoint = "server/index.js"
 
 [[ports]]
